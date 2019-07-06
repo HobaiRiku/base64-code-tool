@@ -17,7 +17,7 @@
                             <span class="title">Base64 code tool</span>
                         </v-flex>
                         <v-flex xs12 mt-4>
-                            <v-textarea outline label="Base64数据" v-model="base64">
+                            <v-textarea outline label="Base64 data" v-model="base64">
                             </v-textarea>
                         </v-flex>
                         <v-flex xs12>
@@ -25,7 +25,7 @@
                             <v-btn color="info" @click="convert('hex','base64')">HEX --> base64</v-btn>
                         </v-flex>
                         <v-flex xs12 mt-4>
-                            <v-textarea outline label="HEX数据" v-model="hex">
+                            <v-textarea outline label="HEX data" v-model="hex">
                             </v-textarea>
                         </v-flex>
                         <v-flex xs12>
@@ -33,7 +33,7 @@
                             <v-btn color="info" @click="convert('string','base64')">string --> base64</v-btn>
                         </v-flex>
                         <v-flex xs12 mt-4>
-                            <v-textarea outline label="字符串数据" v-model="string">
+                            <v-textarea outline label="String data" v-model="string">
                             </v-textarea>
                         </v-flex>
                         <v-snackbar color='error' left v-model="snackbar" :timeout="2000">
