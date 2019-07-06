@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <v-content>
+                <v-container>
+                    <v-layout colum wrap>
+                        <v-flex xs12>
+                            <span class="title">Base64 code tool</span>
+                        </v-flex>
+                        <v-flex xs12 mt-4>
+                            <v-textarea outline label="Base64数据" v-model="base64">
+                            </v-textarea>
+                        </v-flex>
+                        <v-flex xs12>
+                            <v-btn color="info" @click="convert('base64','hex')">base64 --> HEX</v-btn>
+                            <v-btn color="info" @click="convert('hex','base64')">HEX --> base64</v-btn>
+                        </v-flex>
+                        <v-flex xs12 mt-4>
+                            <v-textarea outline label="HEX数据" v-model="hex">
+                            </v-textarea>
+                        </v-flex>
+                        <v-flex xs12>
+                            <v-btn color="info" @click="convert('base64','string')">base64 --> string</v-btn>
+                            <v-btn color="info" @click="convert('string','base64')">string --> base64</v-btn>
+                        </v-flex>
+                        <v-flex xs12 mt-4>
+                            <v-textarea outline label="字符串数据" v-model="string">
+                            </v-textarea>
+                        </v-flex>
+                        <v-snackbar color='error' left v-model="snackbar" :timeout="2000">
+                            {{ message }}
+                            <v-btn dark flat @click="snackbar = false">
+                                Close
+                            </v-btn>
+                        </v-snackbar>
+                    </v-layout>
+                </v-container>
+            </v-content>
+        </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                snackbar: false,
+                message: '',
+                base64: '',
+                hex: '',
+                string: ''
+            },
+            methods: {
+                convert: function (from, to) {
+                    fetch(`/convert?to=${to}&from=${from}`, {
+                        body: JSON.stringify({data: this[from]}),
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        method: 'POST',
+                    }).then(this.handleResponse)
+                        .then(data => {
+                            this[to] = data.result
+                        })
+                        .catch(err => {
+                            this.message = err.data.message
+                            this.snackbar = true
+                        })
+
+                },
+                handleResponse: function (response) {
+                    return response.json()
+                        .then(json => {
+                            if (response.ok) {
+                                return json
+                            } else {
+                                const err = {
+                                    data: json,
+                                    status: response.status,
+                                    response: response
+                                }
+                                return Promise.reject(err)
+                            }
+                        })
+                },
+            }
+        })
+    </script>
+</body>
+<style>
+    * {
+        text-transform: none !important;
+    }
+</style>
+
+</html>
