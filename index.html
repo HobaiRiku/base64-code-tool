@@ -2,9 +2,10 @@
 <html>
 
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@3.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 
 <body>
@@ -13,32 +14,32 @@
             <v-content>
                 <v-container>
                     <v-layout colum wrap>
-                        <v-flex xs12>
+                        <v-flex xs12 mb-4>
                             <span class="title">Base64 code tool</span>
                         </v-flex>
                         <v-flex xs12 mt-4>
-                            <v-textarea outline label="Base64 data" v-model="base64">
+                            <v-textarea outlined label="Base64 data" v-model="base64">
                             </v-textarea>
                         </v-flex>
-                        <v-flex xs12>
+                        <v-flex xs12 mb-4>
                             <v-btn color="info" @click="convert('base64','hex')">base64 --> HEX</v-btn>
                             <v-btn color="info" @click="convert('hex','base64')">HEX --> base64</v-btn>
                         </v-flex>
                         <v-flex xs12 mt-4>
-                            <v-textarea outline label="HEX data" v-model="hex">
+                            <v-textarea outlined label="HEX data" v-model="hex">
                             </v-textarea>
                         </v-flex>
-                        <v-flex xs12>
+                        <v-flex xs12 mb-4>
                             <v-btn color="info" @click="convert('base64','string')">base64 --> string</v-btn>
                             <v-btn color="info" @click="convert('string','base64')">string --> base64</v-btn>
                         </v-flex>
                         <v-flex xs12 mt-4>
-                            <v-textarea outline label="String data" v-model="string">
+                            <v-textarea outlined label="String data" v-model="string">
                             </v-textarea>
                         </v-flex>
                         <v-snackbar color='error' left v-model="snackbar" :timeout="2000">
                             {{ message }}
-                            <v-btn dark flat @click="snackbar = false">
+                            <v-btn text flat @click="snackbar = false">
                                 Close
                             </v-btn>
                         </v-snackbar>
@@ -48,12 +49,12 @@
         </v-app>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <script>
         new Vue({
             el: '#app',
+            vuetify: new Vuetify(),
             data: {
                 snackbar: false,
                 message: '',
